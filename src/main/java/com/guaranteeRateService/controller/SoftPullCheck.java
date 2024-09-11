@@ -1,7 +1,7 @@
 package com.guaranteeRateService.controller;
 
 import com.guaranteeRateService.dto.ApplicationDTO;
-import com.guaranteeRateService.model.ValidationResponse;
+import com.guaranteeRateService.model.SoftPullResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,8 +19,8 @@ import java.util.List;
 @RestController
 public class SoftPullCheck {
 
-    public ResponseEntity<ValidationResponse> softPullCheckData(ApplicationDTO applicationData) {
-        ValidationResponse validationResponse = new ValidationResponse();
+    public ResponseEntity<SoftPullResponse> softPullCheckData(ApplicationDTO applicationData) {
+        SoftPullResponse softPullResponse = new SoftPullResponse();
         List<String> declineReasons = new ArrayList<>();
 
         // Validate age
@@ -42,8 +42,8 @@ public class SoftPullCheck {
 
         // Check if any decline reasons were found
         if (!declineReasons.isEmpty()) {
-            validationResponse.setDeclineReasons(declineReasons);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationResponse);
+            softPullResponse.setDeclineReasons(declineReasons);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(softPullResponse);
         }
 
         // If all validations pass, return OK with no decline reasons
