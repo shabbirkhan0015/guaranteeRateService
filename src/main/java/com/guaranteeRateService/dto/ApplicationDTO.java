@@ -15,18 +15,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApplicationDTO {
         private String applicationId;
         private String phoneNumber;
-        private ProductRequest productRequest;
+        private ProductRequest productRequest= new ProductRequest();
         private String email;
         private String firstName;
         private String middleName;
         private String lastName;
-        private Address address;
+        private Address address = new Address();
         private String rentOrOwn;
         private Integer monthlyHousePayment;
         private String employmentStatus;

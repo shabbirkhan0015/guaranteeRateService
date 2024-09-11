@@ -3,33 +3,33 @@ package com.guaranteeRateService.Utility;
 import com.guaranteeRateService.dto.ApplicationDTO;
 import com.guaranteeRateService.model.Application;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Mapper {
     public static ApplicationDTO modelToDTO(Application application){
-        ApplicationDTO applicationDTO = ApplicationDTO.builder()
-        		.applicationId(application.getApplicationId())
-        		.phoneNumber(application.getPhoneNumber())
-        		.productRequest(application.getProductRequest())
-        		.email(application.getEmail())
-        		.firstName(application.getFirstName())
-        		.middleName(application.getMiddleName())
-        		.lastName(application.getLastName())
-        		.address(application.getAddress())
-        		.rentOrOwn(application.getRentOrOwn())
-        		.monthlyHousePayment(application.getMonthlyHousePayment())
-        		.employmentStatus(application.getEmploymentStatus())
-        		.grossAnnualIncome(application.getGrossAnnualIncome())
-        		.industry(application.getIndustry())
-        		.jobTitle(application.getJobTitle())
-        		.employerName(application.getEmployerName())
-        		.dateOfBirth(Util.stringDateFormat(application.getDateOfBirth()))
-        		.ssnNumber(application.getSsnNumber())
-        		.softPullConsent(application.getSoftPullConsent())
-                .createdAt(application.getCreatedAt())
-                .updatedAt(application.getUpdatedAt())
-        		.build();
+        ApplicationDTO applicationDTO = new ApplicationDTO();
+		applicationDTO.setApplicationId(application.getApplicationId());
+		applicationDTO.setPhoneNumber(application.getPhoneNumber());
+		applicationDTO.setEmail(application.getEmail());
+		applicationDTO.setFirstName(application.getFirstName());
+		applicationDTO.setMiddleName(application.getMiddleName());
+		applicationDTO.setLastName(application.getLastName());
+		applicationDTO.setRentOrOwn(application.getRentOrOwn());
+		applicationDTO.setMonthlyHousePayment(application.getMonthlyHousePayment());
+		applicationDTO.setEmploymentStatus(application.getEmploymentStatus());
+		applicationDTO.setGrossAnnualIncome(application.getGrossAnnualIncome());
+		applicationDTO.setIndustry(application.getIndustry());
+		applicationDTO.setJobTitle(application.getJobTitle());
+		applicationDTO.setEmployerName(application.getEmployerName());
+		applicationDTO.setDateOfBirth(Util.stringDateFormat(application.getDateOfBirth()));
+		applicationDTO.setSsnNumber(application.getSsnNumber());
+		applicationDTO.setSoftPullConsent(application.getSoftPullConsent());
+		applicationDTO.setCreatedAt(application.getCreatedAt());
+		applicationDTO.setUpdatedAt(application.getUpdatedAt());
+		if(application.getAddress()!=null){
+			applicationDTO.setAddress(application.getAddress());
+		}
+		if(application.getProductRequest()!=null){
+			applicationDTO.setProductRequest(application.getProductRequest());
+		}
         return applicationDTO;
     }
     public static Application dtoToModel(ApplicationDTO applicationDTO){
