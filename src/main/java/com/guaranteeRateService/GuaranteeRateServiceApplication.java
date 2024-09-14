@@ -9,5 +9,4 @@ public class GuaranteeRateServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GuaranteeRateServiceApplication.class, args);
 	}
-
 }
