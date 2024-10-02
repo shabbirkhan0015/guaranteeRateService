@@ -1,7 +1,10 @@
 package com.guaranteeRateService.controller;
 
 import com.guaranteeRateService.dto.ApplicationDTO;
+import com.guaranteeRateService.model.Application;
 import com.guaranteeRateService.model.SoftPullResponse;
+import com.guaranteeRateService.repository.ApplicationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,19 +15,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 @RequestMapping("/softpull")
 @RestController
 public class SoftPullCheck {
+    @Autowired
+    private ApplicationRepository applicationRepository;
 
-    @PostMapping
-    public ResponseEntity<SoftPullResponse> softPullCheckData(@RequestBody ApplicationDTO applicationData) {
+    @PostMapping("/{applicationId}")
+    public ResponseEntity<SoftPullResponse> softPullCheckData(@PathVariable String applicationId) {
+        Application application = applicationRepository.findById(applicationId).orElseThrow();
         SoftPullResponse softPullResponse = new SoftPullResponse();
         List<String> declineReasons = new ArrayList<>();
 
         // Validate age
-        String dateOfBirth = applicationData.getDateOfBirth();
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        String dateOfBirth = formatter.format(application.getDateOfBirth());
         LocalDate dob = LocalDate.parse(dateOfBirth, formatter);
         int age = Period.between(dob, LocalDate.now()).getYears();
 
@@ -33,7 +40,7 @@ public class SoftPullCheck {
         }
 
         // Validate income
-        Integer grossAnnualIncome = applicationData.getGrossAnnualIncome();
+        Integer grossAnnualIncome = application.getGrossAnnualIncome();
 
         if (grossAnnualIncome != null && grossAnnualIncome < 20000) {
             declineReasons.add("Your income is below the required $20,000 minimum.");
