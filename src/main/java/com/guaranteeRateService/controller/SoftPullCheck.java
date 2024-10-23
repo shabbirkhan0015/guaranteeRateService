@@ -31,7 +31,7 @@ public class SoftPullCheck {
         // Validate age
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        String dateOfBirth = formatter.format(application.getDateOfBirth());
+        String dateOfBirth = formatter.format(application.getSecurityDetails().getDateOfBirth());
         LocalDate dob = LocalDate.parse(dateOfBirth, formatter);
         int age = Period.between(dob, LocalDate.now()).getYears();
 
@@ -40,7 +40,7 @@ public class SoftPullCheck {
         }
 
         // Validate income
-        Integer grossAnnualIncome = application.getGrossAnnualIncome();
+        Integer grossAnnualIncome = application.getPersonalDetails().getGrossAnnualIncome();
 
         if (grossAnnualIncome != null && grossAnnualIncome < 20000) {
             declineReasons.add("Your income is below the required $20,000 minimum.");
