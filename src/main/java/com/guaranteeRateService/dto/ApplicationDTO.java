@@ -21,6 +21,8 @@ public class ApplicationDTO {
         private PersonalDetails personalDetails = new PersonalDetails();
         private SecurityDetailsDTO securityDetails = new SecurityDetailsDTO();
         private Boolean softPullConsent;
+        private String decisionStatus;
+        private String decisionState;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 }
